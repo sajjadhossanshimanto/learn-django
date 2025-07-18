@@ -11,8 +11,12 @@
 <body>
     <p class="lal-bg">hello</p>
     <p> {{ name }} </p>
-    {% for x in nums %}
-        <h1> {{ x }} </h1>
-    {% endfor %}
+    {% with c=0 %}
+        {% for x in nums %}
+            <h1> {{ x }} </h1>
+            <p> {{ forloop.counter }} </p>
+            {% comment %} {% c = c+1 %} error {% endcomment %}
+        {% endfor %}
+    {% endwith %}
 </body>
 </html>
