@@ -15,3 +15,28 @@ STATICFILES_DIRS = [
 ```
 <link rel='stylesheet' type='text/css' href="{% static 'css/style.css' %}">
 ```
+
+### Setup postgress
+- setup `settings.py`
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'task_manager',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
+```
+- set the db name in `NAME` field
+- install plugins
+```
+pip install psycopg-binary
+pip install psycopg
+```
+- migrate data base
+```
+python manage.py migrate  
+```
