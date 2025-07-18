@@ -19,5 +19,6 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path("task/", include("tasks.urls"))
+    path("task/", include("tasks.urls")),
+    path("users/", include("users.urls"))
 ]
