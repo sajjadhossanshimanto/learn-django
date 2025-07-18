@@ -40,3 +40,14 @@ pip install psycopg
 ```
 python manage.py migrate  
 ```
+
+### make Model
+- declear modele in `app/models.py`
+- create a py file that will create tables / make-migrations
+```bash
+python .\manage.py makemigrations
+```
+- create actual table in db
+```bash
+python .\manage.py migrate
+```
