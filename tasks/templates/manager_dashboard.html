@@ -12,58 +12,24 @@
         </div>
 
         <!-- actual task -->
+        {% for t in tasks%}
         <div class="grid grid-cols-4 items-center"><!-- task-item -->
             <div class="flex items-center gap-2">
                 <div class="rounded-full bg-green-500 w-2 h-2"></div>
-                <div class="">Test low task</div>
+                <div class=""> {{ t.title }} </div>
             </div>
             <!-- PRIORITY -->
             <div class="flex">
-                <span class="rounded-lg font-semibold bg-blue-100 text-blue-600 p-2">Low</span>
+                <span class="rounded-lg font-semibold bg-blue-100 text-blue-600 p-2">{{t.details.get_priority_display}}</span>
             </div>
             <div class="flex -space-x-2 m-1"><!-- team -->
-                <div class="rounded-full text-white bg-blue-500 p-2 text-sm">CA</div>
-                <div class="rounded-full text-white bg-green-500 p-2 text-sm">US</div>
-                <div class="rounded-full text-white bg-yellow-500 p-2 text-sm">AB</div>
+                {% for e in t.assigned_to.all %}
+                <div class="rounded-full text-white bg-blue-500 p-2 text-sm"> {{ e.name|slice:":2" }} </div>
+                {% endfor %}
             </div>
             <!-- CREATED -->
-            <div class="text-sm text-gray-500">9 months ago</div>
+            <div class="text-sm text-gray-500"> {{ t.created_at|timesince }} </div>
         </div>
-        
-        <div class="grid grid-cols-4 items-center"><!-- task-item -->
-            <div class="flex items-center gap-2">
-                <div class="rounded-full bg-red-500 w-2 h-2"></div>
-                <div class="">Test high task</div>
-            </div>
-            <!-- PRIORITY -->
-            <div class="flex">
-                <span class="rounded-lg font-semibold bg-red-100 text-red-600 p-2">High</span>
-            </div>
-            <div class="flex -space-x-2 m-1"><!-- team -->
-                <div class="rounded-full text-white bg-blue-500 p-2 text-sm">CA</div>
-                <div class="rounded-full text-white bg-green-500 p-2 text-sm">US</div>
-                <div class="rounded-full text-white bg-yellow-500 p-2 text-sm">AB</div>
-            </div>
-            <!-- CREATED -->
-            <div class="text-sm text-gray-500">9 months ago</div>
-        </div>
-
-        <div class="grid grid-cols-4 items-center"><!-- task-item -->
-            <div class="flex items-center gap-2">
-                <div class="rounded-full bg-yellow-500 w-2 h-2"></div>
-                <div class="">Test high task</div>
-            </div>
-            <!-- PRIORITY -->
-            <div class="flex">
-                <span class="rounded-lg font-semibold bg-yellow-100 text-yellow-600 p-2">Medium</span>
-            </div>
-            <div class="flex -space-x-2 m-1"><!-- team -->
-                <div class="rounded-full text-white bg-blue-500 p-2 text-sm">CA</div>
-                <div class="rounded-full text-white bg-green-500 p-2 text-sm">US</div>
-                <div class="rounded-full text-white bg-yellow-500 p-2 text-sm">AB</div>
-            </div>
-            <!-- CREATED -->
-            <div class="text-sm text-gray-500">9 months ago</div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock task_list %}
