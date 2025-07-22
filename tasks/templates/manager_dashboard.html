@@ -4,16 +4,17 @@
 <!-- task table -->
     <div>
         <!-- task column -->
-        <div class="flex justify-between p-4 grid grid-cols-4 text-gray-500 font-bold">
+        <div class="flex justify-between p-4 grid grid-cols-5 text-gray-500 font-bold">
             <div>TASK TITKE</div>
             <div>PRIORITY</div>
             <div>TEAM</div>
+            <div>STATUS</div>
             <div>CREATED AT</div>
         </div>
 
         <!-- actual task -->
         {% for t in tasks%}
-        <div class="grid grid-cols-4 items-center"><!-- task-item -->
+        <div class="grid grid-cols-5 items-center"><!-- task-item -->
             <div class="flex items-center gap-2">
                 <div class="rounded-full bg-green-500 w-2 h-2"></div>
                 <div class=""> {{ t.title }} </div>
@@ -27,6 +28,8 @@
                 <div class="rounded-full text-white bg-blue-500 p-2 text-sm"> {{ e.name|slice:":2" }} </div>
                 {% endfor %}
             </div>
+            {% comment %} STATUS {% endcomment %}
+            <div class=""> {{ t.status }} </div>
             <!-- CREATED -->
             <div class="text-sm text-gray-500"> {{ t.created_at|timesince }} </div>
         </div>
