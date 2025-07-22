@@ -65,6 +65,8 @@
         <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
             <h3 class="text-gray-500 font-medium mb-1">TODO</h3>
             <div class="flex justify-between items-center">
+                {% comment %} try creating custom filters {% endcomment %}
+                {% comment %} <p class="text-xl font-bold">{{ total_task|subtract:completed_task }}</p> {% endcomment %}
                 <p class="text-xl font-bold">3</p>
                 <div class="rounded-full bg-pink-200 flex items-center p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-pink-600">
