@@ -9,8 +9,9 @@ def manager_dashboard(request):
     task = Task.objects.select_related('details').prefetch_related("assigned_to").all()
     count = Task.objects.aggregate(
         total_task = Count('id'),
-        completed_task = Count('id', filter=Q(is_completed=True)),
+        completed_task = Count('id', filter=Q(status='COMPLETED')),
         in_progress_task = Count('id', filter=Q(status='IN_PROGRESS')),
+        pending_task = Count('id', filter=Q(status='PENDING'))
     )
 
     context = {
@@ -18,6 +19,7 @@ def manager_dashboard(request):
         'total_task': count['total_task'],
         'completed_task': count['completed_task'],
         'in_progress_task': count['in_progress_task'],
+        'pending_task': count['pending_task']
     }
     return render(request, "manager_dashboard.html", context=context)
 

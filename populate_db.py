@@ -39,7 +39,7 @@ def populate_db():
             # description=fake.paragraph(),
             due_date=fake.date_this_year(),
             status=random.choice(['PENDING', 'IN_PROGRESS', 'COMPLETED']),
-            is_completed=random.choice([True, False])
+            # is_completed=random.choice([True, False])
         )
         task.assigned_to.set(random.sample(employees, random.randint(1, 3)))
         tasks.append(task)
