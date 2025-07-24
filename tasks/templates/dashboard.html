@@ -23,6 +23,7 @@
     <!-- Stats grid -->
     <div class="grid grid-cols-4 gap-4 mb-8">
 
+        <a href='{% url "manager_dashboard" %}?type=completed'>
         <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
             <h3 class="text-gray-500 font-medium mb-1">Total task</h3>
             <div class="flex justify-between items-center">
@@ -35,33 +36,39 @@
             </div>
             <div class="text-gray-500 text-sm">11 last month</div> 
         </div>
+        </a>
 
-        <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
-            <h3 class="text-gray-500 font-medium mb-1">Completed Task</h3>
-            <div class="flex justify-between items-center">
-                <p class="text-xl font-bold"> {{ completed_task }} </p>
-                <div class="rounded-full bg-green-200 flex items-center p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-600">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
+        <a href='{% url "manager_dashboard" %}?type=completed'>
+            <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
+                <h3 class="text-gray-500 font-medium mb-1">Completed Task</h3>
+                <div class="flex justify-between items-center">
+                    <p class="text-xl font-bold"> {{ completed_task }} </p>
+                    <div class="rounded-full bg-green-200 flex items-center p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
                 </div>
+                <div class="text-gray-500 text-sm">11 last month</div> 
             </div>
-            <div class="text-gray-500 text-sm">11 last month</div> 
-        </div>
+        </a>
 
-        <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
-            <h3 class="text-gray-500 font-medium mb-1">Task in Progress</h3>
-            <div class="flex justify-between items-center">
-                <p class="text-xl font-bold"> {{ in_progress_task }} </p>
-                <div class="rounded-full bg-yellow-200 flex items-center p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-600">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
+        <a href='{% url "manager_dashboard" %}?type=in-progess'>
+            <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
+                <h3 class="text-gray-500 font-medium mb-1">Task in Progress</h3>
+                <div class="flex justify-between items-center">
+                    <p class="text-xl font-bold"> {{ in_progress_task }} </p>
+                    <div class="rounded-full bg-yellow-200 flex items-center p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
                 </div>
+                <div class="text-gray-500 text-sm">11 last month</div> 
             </div>
-            <div class="text-gray-500 text-sm">11 last month</div> 
-        </div>
+        </a>
 
+        <a href='{% url "manager_dashboard" %}?type=todo'>
         <div class="rounded-xl p-4 gap-2 shadow-xl"> <!-- card div --> 
             <h3 class="text-gray-500 font-medium mb-1">TODO</h3>
             <div class="flex justify-between items-center">
@@ -76,6 +83,8 @@
             </div>
             <div class="text-gray-500 text-sm">11 last month</div> 
         </div>
+        </a>
+        
     </div>
 
     {% block task_list %}{% endblock task_list %}

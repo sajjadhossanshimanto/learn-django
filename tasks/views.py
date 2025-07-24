@@ -6,7 +6,18 @@ from django.db.models import Count, Q
 
 # Create your views here.
 def manager_dashboard(request):
-    task = Task.objects.select_related('details').prefetch_related("assigned_to").all()
+    task_type = request.GET.get('type', 'all')
+    base_query = Task.objects.select_related('details').prefetch_related("assigned_to")
+
+    if task_type=='completed':
+        task = base_query.filter(status='COMPLETED')
+    elif task_type=='in-progess':
+        task = base_query.filter(status='IN_PROGRESS')
+    elif task_type=='todo':
+        task = base_query.filter(status='PENDING')
+    else:
+        task = base_query.all()
+    
     count = Task.objects.aggregate(
         total_task = Count('id'),
         completed_task = Count('id', filter=Q(status='COMPLETED')),
