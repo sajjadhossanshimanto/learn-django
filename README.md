@@ -51,3 +51,10 @@ python .\manage.py makemigrations
 ```bash
 python .\manage.py migrate
 ```
+
+### django admin
+- create admin 
+```
+python .\manage.py createsuperuser
+```
+- every model must have `__str__` method defined to be able to edit from django admin page
