@@ -1,10 +1,17 @@
 from django.shortcuts import render
 
-# Create your views here.
-def home(request):
-    context = {
-        "nums": [1, 2, 3, 4, 5],
-        "name": "shimnato",
-    }
-    return render(request, "test.html", context=context)
+from users.forms import RegisterForm
 
+
+# Create your views here.
+def sign_up(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)# returns a dict of form data
+            form.save()
+        else:
+            print('form is not valid')
+    
+    return render(request, 'sign-up.html', {'form':form})
