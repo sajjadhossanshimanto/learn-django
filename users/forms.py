@@ -34,6 +34,15 @@ class CustomRegistrationForm(forms.ModelForm):
         
         return p1 # NOTE: cummon error
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        pre_exist = User.objects.filter(email=email).exists()
+
+        if pre_exist:
+            raise forms.ValidationError("Email already exists")
+
+        return email
+
     def clean(self):
         '''
         NOTE: ultrimately i can use this function for both field and non-field
