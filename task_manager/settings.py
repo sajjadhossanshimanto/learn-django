@@ -148,3 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+
+# emails
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
