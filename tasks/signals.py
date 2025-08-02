@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save, pre_save, m2m_changed, post_delete
 from django.dispatch import receiver
 from django.core.mail import send_mail
+from django.conf import settings
 
 from tasks.models import Task
 
@@ -14,7 +15,7 @@ def notify_employees(sender, instance, action, **kw):
         send_mail(
             subject='New task assigned',
             message=f'You have been assigned to the task: {instance.title}',
-            from_email='abc@gmail.com',
+            from_email=settings.EMAIL_SENDER,
             recipient_list=emails,
             fail_silently=False
         )
