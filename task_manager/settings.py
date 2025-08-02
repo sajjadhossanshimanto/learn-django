@@ -153,3 +153,4 @@ INTERNAL_IPS = [
 # emails
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_SENDER = 'abc@gmail.com'# var nam is user defined
+BASE_URL = 'https://127.0.0.1:8000'
