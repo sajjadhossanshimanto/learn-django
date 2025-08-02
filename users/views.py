@@ -45,7 +45,7 @@ def sign_out(request):
         logout(request)
         return redirect('login')
 
-def activate_user(user_id:int, token:str):
+def activate_user(request, user_id:int, token:str):
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
