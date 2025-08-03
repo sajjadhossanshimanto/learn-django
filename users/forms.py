@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 import re
 
@@ -55,3 +55,6 @@ class CustomRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('password do not match')
         
         return cleaned_data
+
+class Login(AuthenticationForm):# also may inherit mexin
+    pass# can be used if we want to replace the html form in the login screen

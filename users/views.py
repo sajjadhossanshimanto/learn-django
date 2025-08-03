@@ -31,9 +31,12 @@ def sign_in(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        if user:
+        if user and user.is_active:
             login(request, user)
             return redirect('home')
+        else:
+            messages.success(request, 'user not found or not activated')
+            return redirect('login')
 
     return render(request, 'login.html')
 
