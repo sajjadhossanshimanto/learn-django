@@ -20,9 +20,9 @@ def sign_up(request):
             messages.success(
                 request, "An activation email has been sent"
             )
+            return redirect('login')
         else:
             print('form is not valid')
-        return redirect('login')
     
     return render(request, 'sign-up.html', {'form':form})
 
@@ -54,6 +54,7 @@ def activate_user(request, user_id:int, token:str):
     if default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+        messages.success(request, "Your account have been activated.")
     else:
         return HttpResponse('Invalid Id or token')
     
