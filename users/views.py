@@ -64,5 +64,6 @@ def activate_user(request, user_id:int, token:str):
     return redirect("login")
 
 def admin_dashboard(request):
-    return render(request, 'admin/dashboard.html')
+    users = User.objects.all()
+    return render(request, 'admin/dashboard.html', {'users': users})
 

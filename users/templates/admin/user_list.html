@@ -37,12 +37,19 @@
       </thead>
       <tbody class="divide-y divide-gray-200">
         <!-- Example static data -->
+        {% for u in users %}
         <tr class="hover:bg-gray-50">
-          <td class="px-4 py-4 whitespace-nowrap">1</td>
-          <td class="px-4 py-4 whitespace-nowrap">John Doe</td>
-          <td class="px-4 py-4 whitespace-nowrap">johndoe@example.com</td>
-          <td class="px-4 py-4 whitespace-nowrap">12345</td>
-          <td class="px-4 py-4 whitespace-nowrap">Admin</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{ forloop.counter }}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{u.first_nam}} {{u.last_name}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{u.email}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">{{u.id}}</td>
+          <td class="px-4 py-4 whitespace-nowrap">
+              {% for group in u.groups.all %}
+                {{ group.name }}{% if not forloop.last %}, {% endif %}
+              {% empty %}
+                No groups
+              {% endfor %}
+          </td>
           <td class="px-4 py-4 whitespace-nowrap">
             <a
               href="assign-role.html?id=12345"
@@ -52,21 +59,7 @@
             </a>
           </td>
         </tr>
-        <tr class="hover:bg-gray-50">
-          <td class="px-4 py-4 whitespace-nowrap">2</td>
-          <td class="px-4 py-4 whitespace-nowrap">Jane Smith</td>
-          <td class="px-4 py-4 whitespace-nowrap">janesmith@example.com</td>
-          <td class="px-4 py-4 whitespace-nowrap">67890</td>
-          <td class="px-4 py-4 whitespace-nowrap">Editor</td>
-          <td class="px-4 py-4 whitespace-nowrap">
-            <a
-              href="assign-role.html?id=67890"
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Change Role
-            </a>
-          </td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
