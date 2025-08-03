@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -20,6 +20,14 @@ def send_activation_mail(sender, instance, created, **kwargs):
         from_email=settings.EMAIL_SENDER,
         recipient_list=[instance.email]
     )
+
+@receiver(post_save, sender=User)
+def assign_role(sender, instance, created, **kwargs):
+    if created:
+        group, created = Group.objects.get_or_create(name = "User")
+        instance.groups.add(group)
+        instance.save()
+
 
 '''pass
 ia1LTVrazJfPsQbNuwR6

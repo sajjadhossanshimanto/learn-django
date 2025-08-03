@@ -62,3 +62,7 @@ def activate_user(request, user_id:int, token:str):
         return HttpResponse('Invalid Id or token')
     
     return redirect("login")
+
+def admin_dashboard(request):
+    return render(request, 'admin/dashboard.html')
+
