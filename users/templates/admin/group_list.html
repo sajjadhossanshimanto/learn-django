@@ -25,38 +25,23 @@
           </thead>
           <tbody>
             <!-- Example group data -->
+             {% for g in groups %}
             <tr class="odd:bg-white even:bg-gray-50">
               <td class="border border-gray-300 px-4 py-2 font-medium">
-                Admins
+                {{g.name}}
               </td>
               <td class="border border-gray-300 px-4 py-2">
                 <ul class="list-disc list-inside">
-                  <li>Add User</li>
-                  <li>Delete User</li>
+                  {% for p in g.permissions.all %}
+                  <li>{{p.name}}</li>
+                  {% empty %}
+                  <span class="text-gray-500 italic">No permissions assigned</span>
+                  {% endfor %}
                 </ul>
               </td>
             </tr>
-            <tr class="odd:bg-white even:bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2 font-medium">
-                Editors
-              </td>
-              <td class="border border-gray-300 px-4 py-2">
-                <ul class="list-disc list-inside">
-                  <li>Edit Articles</li>
-                  <li>Publish Articles</li>
-                </ul>
-              </td>
-            </tr>
-            <tr class="odd:bg-white even:bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2 font-medium">
-                Viewers
-              </td>
-              <td class="border border-gray-300 px-4 py-2">
-                <span class="text-gray-500 italic"
-                  >No permissions assigned</span
-                >
-              </td>
-            </tr>
+            {% endfor %}
+
           </tbody>
         </table>
       </div>

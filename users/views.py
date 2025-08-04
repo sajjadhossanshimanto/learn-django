@@ -84,4 +84,5 @@ def assign_rule(request, user_id):
     return render(request, 'admin/assign_role.html', {'form': form, "user":user})
 
 def group_list(request):
-    return render(request, 'admin/group_list.html')
+    groups = Group.objects.all()
+    return render(request, 'admin/group_list.html', {'groups':groups})
