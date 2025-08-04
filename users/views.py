@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
-from users.forms import CustomRegistrationForm, AssignRoleForm
+from users.forms import CustomRegistrationForm, AssignRoleForm, CreateGroupForm
 from django.contrib import messages
 
 
@@ -86,3 +86,13 @@ def assign_rule(request, user_id):
 def group_list(request):
     groups = Group.objects.all()
     return render(request, 'admin/group_list.html', {'groups':groups})
+
+def create_group(request):
+    form = CreateGroupForm()
+    if request.method == "POST":
+        form = CreateGroupForm(request.POST)
+        if form.is_valid():
+            group = form.save()
+            messages.success(request, f"Group {group.name} has been created successfully")
+    
+    return render(request, 'admin/create_group.html', {'form':form})

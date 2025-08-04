@@ -1,5 +1,5 @@
 from django.urls import path
-from users.views import sign_up, sign_in, home, sign_out, activate_user, admin_dashboard, assign_rule, group_list
+from users.views import sign_up, sign_in, home, sign_out, activate_user, admin_dashboard, assign_rule, group_list, create_group
 
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('admin/dashboard/', admin_dashboard, name="admin-dashboard"),
     path('admin/<int:user_id>/assign-role/', assign_rule),
     path('admin/group-list/', group_list),
+    path('admin/create-group/', create_group, name='create-group')
 ]
