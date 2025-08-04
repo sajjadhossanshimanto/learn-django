@@ -1,3 +1,10 @@
+### create app
+```
+python .\manage.py startapp core
+```
+- here `core` is the app_name
+- we store cummon things in the core
+
 ### Adding global static
 - therer are so many places to make mistakes
 - editing setting. `STATICFILES_DIRS` spelling 
