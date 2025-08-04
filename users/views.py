@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
 from users.forms import CustomRegistrationForm, AssignRoleForm
 from django.contrib import messages
@@ -82,3 +82,6 @@ def assign_rule(request, user_id):
             messages.success(request, f"User {user.username} has assigned to the {role.name} role")
     
     return render(request, 'admin/assign_role.html', {'form': form, "user":user})
+
+def group_list(request):
+    return render(request, 'admin/group_list.html')
