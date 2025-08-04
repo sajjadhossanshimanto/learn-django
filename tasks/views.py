@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Count, Q
 from django.contrib import messages
@@ -90,3 +90,13 @@ def update_task(request, id):
         'task_detail_form': task_details
     }
     return render(request, 'taskform.html', context)
+
+def delete_task(request, id):
+    if request.method == 'POST':
+        task = Task.objects.get(id=id)
+        task.delete()# del qury
+        messages.success(request, 'Task Deleted Successfully')
+        return redirect('manager-dashboard')
+    else:
+        messages.error(request, 'Something went wrong')
+        return redirect('manager-dashboard')
