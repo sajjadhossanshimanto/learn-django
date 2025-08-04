@@ -45,15 +45,9 @@
                 id="user-menu"
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
               >
-                <a
-                  href="manager-dashboard.html"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >Dashboard</a
-                >
-                <form method="post" action="logout.html">
-                  <button
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
+                <form method="post" action="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  {% csrf_token %}
+                  <button>
                     Logout
                   </button>
                 </form>
