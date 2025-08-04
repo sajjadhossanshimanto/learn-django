@@ -10,6 +10,6 @@ urlpatterns = [
     path('activate/<int:user_id>/<str:token>/', activate_user),
     path('admin/dashboard/', admin_dashboard, name="admin-dashboard"),
     path('admin/<int:user_id>/assign-role/', assign_rule),
-    path('admin/group-list/', group_list),
+    path('admin/group-list/', group_list, name="list-group"),
     path('admin/create-group/', create_group, name='create-group')
 ]

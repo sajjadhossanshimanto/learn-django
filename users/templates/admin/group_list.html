@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Groups and Permissions</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body>
-    <header class="bg-white shadow-md">
-      <nav class="container mx-auto px-6 py-3">
-        <a href="index.html" class="text-xl font-bold text-gray-800">Taskify</a>
-      </nav>
-    </header>
-
-    <main class="w-2/3 mx-auto mt-8">
+{% extends "admin/dashboard.html" %}
+{% block content %}
       <h2 class="text-2xl font-bold mb-4">Groups and Permissions</h2>
       <div class="overflow-x-auto">
         <table class="table-auto w-full border-collapse border border-gray-300">
@@ -45,6 +31,4 @@
           </tbody>
         </table>
       </div>
-    </main>
-  </body>
-</html>
+{% endblock %}
