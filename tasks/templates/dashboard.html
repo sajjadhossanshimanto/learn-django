@@ -87,6 +87,13 @@
         
     </div>
 
+    <ul>
+        {% if messages %}
+            {% for message in messages %}
+                <li class="px-2 py-1 bg-green-50 ">{{message}}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
     {% block task_list %}{% endblock task_list %}
 </body>
 </html>

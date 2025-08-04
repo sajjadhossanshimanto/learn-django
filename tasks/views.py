@@ -96,7 +96,7 @@ def delete_task(request, id):
         task = Task.objects.get(id=id)
         task.delete()# del qury
         messages.success(request, 'Task Deleted Successfully')
-        return redirect('manager-dashboard')
+        return redirect('manager_dashboard')
     else:
         messages.error(request, 'Something went wrong')
-        return redirect('manager-dashboard')
+        return redirect('manager_dashboard')
