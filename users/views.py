@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.decorators import login_required, user_passes_test
 from users.forms import CustomRegistrationForm, AssignRoleForm, CreateGroupForm
 from django.contrib import messages
 
+
+# validaty functions
+def is_admin(user:User):
+    return user.groups.filter(name="Admin").exists()
 
 # Create your views here.
 def sign_up(request):
@@ -43,11 +48,15 @@ def sign_in(request):
 def home(request):
     return render(request, "home.html")
 
+@login_required
 def sign_out(request):
     if request.method == "POST":
         logout(request)
         return redirect('login')
 
+# --- admin only functions ---
+
+@user_passes_test(is_admin, login_url='login')
 def activate_user(request, user_id:int, token:str):
     try:
         user = User.objects.get(id=user_id)
@@ -63,10 +72,12 @@ def activate_user(request, user_id:int, token:str):
     
     return redirect("login")
 
+@user_passes_test(is_admin, login_url='login')
 def admin_dashboard(request):
     users = User.objects.all()
     return render(request, 'admin/dashboard.html', {'users': users})
 
+@user_passes_test(is_admin, login_url='login')
 def assign_rule(request, user_id):
     user = User.objects.get(id=user_id)
     form = AssignRoleForm(initial={'role': user.groups.first()})
@@ -83,10 +94,12 @@ def assign_rule(request, user_id):
     
     return render(request, 'admin/assign_role.html', {'form': form, "user":user})
 
+@user_passes_test(is_admin, login_url='login')
 def group_list(request):
     groups = Group.objects.all()
     return render(request, 'admin/group_list.html', {'groups':groups})
 
+@user_passes_test(is_admin, login_url='login')
 def create_group(request):
     form = CreateGroupForm()
     if request.method == "POST":
