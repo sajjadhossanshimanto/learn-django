@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 import re
 
 
@@ -58,3 +58,9 @@ class CustomRegistrationForm(forms.ModelForm):
 
 class Login(AuthenticationForm):# also may inherit mexin
     pass# can be used if we want to replace the html form in the login screen
+
+class AssignRoleForm(forms.Form):
+    role = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        empty_label="Select a Role"
+    )
