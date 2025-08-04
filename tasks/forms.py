@@ -1,9 +1,11 @@
 from django import forms
+
 from tasks.models import Task, TaskDetail
+from core.forms import StyledFormMixin
 
 
 # Django Form
-class TaskModelForm(forms.ModelForm):
+class TaskModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'due_date', 'assigned_to']
@@ -13,7 +15,7 @@ class TaskModelForm(forms.ModelForm):
         }
 
 
-class TaskDetailModelForm(forms.ModelForm):
+class TaskDetailModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = TaskDetail
         fields = ['priority', 'notes']
