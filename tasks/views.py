@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from tasks.models import Task
 from django.db.models import Count, Q
+from django.contrib import messages
+
+from tasks.models import Task
+from tasks.forms import TaskModelForm, TaskDetailModelForm
 
 
 # Create your views here.
@@ -36,3 +39,26 @@ def manager_dashboard(request):
 
 def user_dashboard(request):
     return render(request, "user_dashboard.html")
+
+def create_task(request):
+    task_form = TaskModelForm()
+    task_details = TaskDetailModelForm()
+    
+    if request.method == "POST":
+        task_form = TaskModelForm(request.POST)
+        task_details = TaskDetailModelForm(request.POST)
+
+        if task_form.is_valid() and task_details.is_valid():
+            task = task_form.save()
+            
+            task_details = task_details.save(commit=False)
+            task_details.task = task
+            task_details.save()
+
+            messages.success(request, 'Task Created Sucessfully')
+
+    context = {
+        'task_form': task_form,
+        'task_detail_form': task_details
+    }
+    return render(request, 'taskform.html', context)
