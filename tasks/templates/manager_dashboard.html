@@ -18,7 +18,7 @@
         <div class="grid grid-cols-6 items-center"><!-- task-item -->
             <div class="flex items-center gap-2">
                 <div class="rounded-full bg-green-500 w-2 h-2"></div>
-                <div class=""> {{ t.title }} </div>
+                <div class=""> {{t.id}}. {{ t.title }} </div>
             </div>
             <!-- PRIORITY -->
             <div class="flex">
@@ -26,7 +26,7 @@
             </div>
             <div class="flex -space-x-2 m-1"><!-- team -->
                 {% for e in t.assigned_to.all %}
-                <div class="rounded-full text-white bg-blue-500 p-2 text-sm"> {{ e.name|slice:":2" }} </div>
+                <div class="rounded-full text-white bg-blue-500 p-2 text-sm"> {{ e.username|slice:":2"|upper }} </div>
                 {% endfor %}
             </div>
             {% comment %} STATUS {% endcomment %}

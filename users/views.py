@@ -56,7 +56,7 @@ def sign_out(request):
 
 # --- admin only functions ---
 
-@user_passes_test(is_admin, login_url='login')
+# @user_passes_test(is_admin, login_url='login')# bugfix
 def activate_user(request, user_id:int, token:str):
     try:
         user = User.objects.get(id=user_id)

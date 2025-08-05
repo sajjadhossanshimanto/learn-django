@@ -2,7 +2,8 @@ import os
 import django
 from faker import Faker
 import random
-from tasks.models import Employee, Project, Task, TaskDetail
+from tasks.models import User, Project, Task, TaskDetail
+from django.contrib.auth.models import Group
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'task_management.settings')
@@ -24,10 +25,18 @@ def populate_db():
     print(f"Created {len(projects)} projects.")
 
     # Create Employees
-    employees = [Employee.objects.create(
-        name=fake.name(),
-        email=fake.email()
-    ) for _ in range(10)]
+    user_role = Group.objects.filter(name="User").first()
+    employees = []
+    for _ in range(10):
+        u = User.objects.create(
+            username = fake.user_name(),
+            first_name = fake.first_name(),
+            last_name = fake.last_name(),
+            email=fake.email(),
+            is_active = True,
+        )
+        u.groups.add(user_role)
+        employees.append(u)
     print(f"Created {len(employees)} employees.")
 
     # Create Tasks
