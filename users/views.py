@@ -74,7 +74,7 @@ def activate_user(request, user_id:int, token:str):
 
 @user_passes_test(is_admin, login_url='login')
 def admin_dashboard(request):
-    users = User.objects.all()
+    users = User.objects.prefetch_related('groups').all()
     return render(request, 'admin/dashboard.html', {'users': users})
 
 @user_passes_test(is_admin, login_url='login')
