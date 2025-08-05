@@ -19,7 +19,6 @@ class Task(models.Model):
     assigned_to = models.ManyToManyField(User, related_name='tasks')
     title = models.CharField(max_length=250)
     due_date = models.DateField()
-    # is_completed = models.BooleanField(default=False)# status=completed does the same
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
