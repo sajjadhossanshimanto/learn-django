@@ -2,12 +2,23 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Count, Q
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 
 from tasks.models import Task
 from tasks.forms import TaskModelForm, TaskDetailModelForm
 
 
+# validation functions
+def is_manager(user):
+    return 1
+
+def is_empoloye(user):
+    return 1
+
+
 # Create your views here.
+@login_required(login_url='login')
+@user_passes_test(is_manager, login_url='no-permission')
 def manager_dashboard(request):
     task_type = request.GET.get('type', 'all')
     base_query = Task.objects.select_related('details').prefetch_related("assigned_to")
@@ -37,9 +48,12 @@ def manager_dashboard(request):
     }
     return render(request, "manager_dashboard.html", context=context)
 
+@login_required(login_url='login')
+@user_passes_test(is_empoloye, login_url='no-permission')
 def user_dashboard(request):
     return render(request, "user_dashboard.html")
 
+@permission_required('add_task', login_url='no-permission')
 def create_task(request):
     task_form = TaskModelForm()
     task_details = TaskDetailModelForm()
@@ -63,6 +77,7 @@ def create_task(request):
     }
     return render(request, 'taskform.html', context)
 
+@permission_required('change_task', login_url='no-permission')
 def update_task(request, id):
     task = Task.objects.get(id=id)
     task_form = TaskModelForm(instance=task)
@@ -91,6 +106,7 @@ def update_task(request, id):
     }
     return render(request, 'taskform.html', context)
 
+@permission_required('delete_task')
 def delete_task(request, id):
     if request.method == 'POST':
         task = Task.objects.get(id=id)

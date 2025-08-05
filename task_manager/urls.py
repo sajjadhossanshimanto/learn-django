@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("task/", include("tasks.urls")),
     path("users/", include("users.urls")),
-    path("unauthurized/", no_permission),
+    path("unauthurized/", no_permission, name='no-permission'),
 ] + debug_toolbar_urls()
