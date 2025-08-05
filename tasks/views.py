@@ -116,3 +116,6 @@ def delete_task(request, id):
     else:
         messages.error(request, 'Something went wrong')
         return redirect('manager_dashboard')
+
+def task_details(request, task_id):
+    return render(request, 'task_details.html')
