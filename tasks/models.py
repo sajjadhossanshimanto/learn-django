@@ -48,6 +48,8 @@ class TaskDetail(models.Model):
     )
     notes = models.TextField(blank=True, null=True)
 
+    assets = models.ImageField(upload_to='task_asset', blank=True, null=True, default="task_asset/default.jpg")
+
     def __str__(self):
         return f'Details from Task {self.task.title}'
 

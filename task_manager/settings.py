@@ -156,3 +156,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_SENDER = 'abc@gmail.com'# var nam is user defined
 # BASE_URL = 'https://127.0.0.1:8000'
 BASE_URL = '127.0.0.1:8000'
+
+
+# media managing
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'media/'

@@ -60,7 +60,7 @@ def create_task(request):
     
     if request.method == "POST":
         task_form = TaskModelForm(request.POST)
-        task_details = TaskDetailModelForm(request.POST)
+        task_details = TaskDetailModelForm(request.POST, request.FILES)
 
         if task_form.is_valid() and task_details.is_valid():
             task = task_form.save()
@@ -88,7 +88,7 @@ def update_task(request, id):
     if request.method == "POST":
         task_form = TaskModelForm(request.POST, instance=task)
         task_detail_form = TaskDetailModelForm(
-            request.POST, instance=task.details)
+            request.POST, request.FILES, instance=task.details)
 
         if task_form.is_valid() and task_detail_form.is_valid():
 
@@ -120,7 +120,7 @@ def delete_task(request, id):
 @permission_required("tasks.view_task", login_url='no-permission')
 def task_details(request, task_id):
     task = Task.objects.get(id=task_id)
-    print("printing", task.status)
+    # print("printing", task.status)
     if request.method=="POST":
         selected_status = request.POST['task_status']
         task.status = selected_status
