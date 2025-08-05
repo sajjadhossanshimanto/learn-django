@@ -120,4 +120,10 @@ def delete_task(request, id):
 @permission_required("tasks.view_task", login_url='no-permission')
 def task_details(request, task_id):
     task = Task.objects.get(id=task_id)
+    print("printing", task.status)
+    if request.method=="POST":
+        selected_status = request.POST['task_status']
+        task.status = selected_status
+        task.save()
+
     return render(request, 'task_details.html', {"task": task})

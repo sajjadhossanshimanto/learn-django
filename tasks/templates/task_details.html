@@ -30,15 +30,17 @@
           </svg>
           Task Detail
         </button>
+        <form method="post">
+        {% csrf_token %}
         <div class="flex items-center gap-2">
           <select
             name="task_status"
             id="task_status"
             class="px-4 py-2 border rounded-md"
           >
-            <option value="pending">Pending</option>
-            <option value="in_progress">In Progress</option>
-            <option value="completed">Completed</option>
+            {% for lable, value in task.STATUS_CHOICES %}
+              <option value="{{ value }}" {% if task.status == lable %}selected{% endif %}>{{lable}}</option>
+            {% endfor %}
           </select>
           <button
             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -46,6 +48,9 @@
           >
             Change Status
           </button>
+          </form>
+
+          <a href='{% url "update-task" task.id %}' class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Edit</a>
         </div>
       </div>
 
@@ -89,7 +94,7 @@
                   </div>
                   <div>
                     <div class="font-semibold">{{ e.first_name }} {{ e.last_name }}</div>
-                    <div class="text-gray-600">{{ e.goups }}</div>
+                    <div class="text-gray-600">{{ e.goups.first.name|default:"No Rule assigned"}}</div>
                   </div>
                 </div>
                 {% endfor %}
@@ -97,12 +102,15 @@
               </div>
             </div>
             <div>
+            <form action='{% url "delete-task" task.id %}' method='POST'>
+              {% csrf_token %}
               <button
                 class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                 type="submit"
               >
                 Delete Task
               </button>
+            </form>
             </div>
           </div>
         </div>
