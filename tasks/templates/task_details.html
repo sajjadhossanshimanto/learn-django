@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test Low Task</title>
+    <title>{{ task.title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-50">
     <div class="container mx-auto px-4 py-8 max-w-7xl">
-      <h1 class="text-3xl font-bold mb-6">Test Low Task</h1>
+      <h1 class="text-3xl font-bold mb-6">{{ task.title }}</h1>
 
       <!-- Navigation Tabs -->
       <div class="flex gap-4 mb-8 border-b">
@@ -57,16 +57,16 @@
             <div class="flex gap-3 mb-6">
               <span
                 class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
-                >LOW PRIORITY</span
+                >{{ task.status }}</span
               >
               <span
                 class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm"
-                >COMPLETED</span
+                >{{task.details.get_priority_display|upper}} PRIORITY</span
               >
             </div>
 
             <!-- Creation Date -->
-            <div class="text-gray-600 mb-6">Created At: Thu Mar 14 2024</div>
+            <div class="text-gray-600 mb-6">Created At: {{ task.created_at }}</div>
 
             <!-- Metrics -->
             <div class="mb-8">
@@ -80,39 +80,20 @@
             <div class="mb-9">
               <h2 class="text-xl font-bold mb-4">TASK TEAM</h2>
               <div class="space-y-4">
+                {% for e in task.assigned_to.all %}
                 <div class="flex items-center gap-4">
                   <div
                     class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white"
                   >
-                    CA
+                    {{ e.first_name|slice:":2" }}
                   </div>
                   <div>
-                    <div class="font-semibold">Codewave Asante</div>
-                    <div class="text-gray-600">Administrator</div>
+                    <div class="font-semibold">{{ e.first_name }} {{ e.last_name }}</div>
+                    <div class="text-gray-600">{{ e.goups }}</div>
                   </div>
                 </div>
-                <div class="flex items-center gap-4">
-                  <div
-                    class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white"
-                  >
-                    JS
-                  </div>
-                  <div>
-                    <div class="font-semibold">Jane Smith</div>
-                    <div class="text-gray-600">Product Manager</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-4">
-                  <div
-                    class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white"
-                  >
-                    B
-                  </div>
-                  <div>
-                    <div class="font-semibold">B</div>
-                    <div class="text-gray-600">developer</div>
-                  </div>
-                </div>
+                {% endfor %}
+
               </div>
             </div>
             <div>
@@ -132,9 +113,7 @@
           <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
             <h2 class="text-xl font-bold mb-4">TASK DESCRIPTION</h2>
             <p class="text-gray-600">
-              Switches are a pleasant interface for toggling a value between two
-              states, and offer the same semantics and keyboard navigation as
-              native checkbox elements
+              {{ task.note }}
             </p>
           </div>
 

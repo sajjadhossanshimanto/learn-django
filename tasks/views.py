@@ -117,5 +117,7 @@ def delete_task(request, id):
         messages.error(request, 'Something went wrong')
         return redirect('manager_dashboard')
 
+@permission_required("tasks.view_task", login_url='no-permission')
 def task_details(request, task_id):
-    return render(request, 'task_details.html')
+    task = Task.objects.get(id=task_id)
+    return render(request, 'task_details.html', {"task": task})
