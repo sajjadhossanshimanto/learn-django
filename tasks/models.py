@@ -1,29 +1,33 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
-# Create your models here.
 class Task(models.Model):
     STATUS_CHOICES = [
-        ('PENDING', 'pending'),
-        ('IN_PROGRESS', 'In progress'),
+        ('PENDING', 'Pending'),
+        ('IN_PROGRESS', 'In Progress'),
         ('COMPLETED', 'Completed')
     ]
-    status = models.CharField(
-        max_length=15, choices=STATUS_CHOICES, default="PENDING")
     project = models.ForeignKey(
-        'Project',
+        "Project",
         on_delete=models.CASCADE,
         default=1
     )
-    assigned_to = models.ManyToManyField(User, related_name='tasks')
+    # assigned_to = models.ManyToManyField(Employee, related_name='tasks')
+    assigned_to = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='tasks')
     title = models.CharField(max_length=250)
+    description = models.TextField()
     due_date = models.DateField()
+    status = models.CharField(
+        max_length=15, choices=STATUS_CHOICES, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # details
 
     def __str__(self):
-        return f'task: {self.title}'
+        return self.title
+
 
 class TaskDetail(models.Model):
     HIGH = 'H'
@@ -36,27 +40,23 @@ class TaskDetail(models.Model):
     )
     task = models.OneToOneField(
         Task,
-        on_delete=models.CASCADE,
-        related_name='details'
+        on_delete=models.DO_NOTHING,
+        related_name='details',
     )
-
+    asset = models.ImageField(upload_to='tasks_asset',  blank=True, null=True,
+                              default="tasks_asset/default_img.jpg")
     priority = models.CharField(
-        max_length=1,
-        choices=PRIORITY_OPTIONS,
-        default=LOW
-    )
+        max_length=1, choices=PRIORITY_OPTIONS, default=LOW)
     notes = models.TextField(blank=True, null=True)
 
-    assets = models.ImageField(upload_to='task_asset', blank=True, null=True, default="task_asset/default.jpg")
-
     def __str__(self):
-        return f'Details from Task {self.task.title}'
+        return f"Details form Task {self.task.title}"
+
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
     start_date = models.DateField()
-    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.name)
-    
+        return self.name

@@ -2,8 +2,7 @@ import os
 import django
 from faker import Faker
 import random
-from tasks.models import User, Project, Task, TaskDetail
-from django.contrib.auth.models import Group
+from tasks.models import Employee, Project, Task, TaskDetail
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'task_management.settings')
@@ -25,18 +24,10 @@ def populate_db():
     print(f"Created {len(projects)} projects.")
 
     # Create Employees
-    user_role = Group.objects.filter(name="User").first()
-    employees = []
-    for _ in range(10):
-        u = User.objects.create(
-            username = fake.user_name(),
-            first_name = fake.first_name(),
-            last_name = fake.last_name(),
-            email=fake.email(),
-            is_active = True,
-        )
-        u.groups.add(user_role)
-        employees.append(u)
+    employees = [Employee.objects.create(
+        name=fake.name(),
+        email=fake.email()
+    ) for _ in range(10)]
     print(f"Created {len(employees)} employees.")
 
     # Create Tasks
@@ -45,10 +36,10 @@ def populate_db():
         task = Task.objects.create(
             project=random.choice(projects),
             title=fake.sentence(),
-            # description=fake.paragraph(),
+            description=fake.paragraph(),
             due_date=fake.date_this_year(),
             status=random.choice(['PENDING', 'IN_PROGRESS', 'COMPLETED']),
-            # is_completed=random.choice([True, False])
+            is_completed=random.choice([True, False])
         )
         task.assigned_to.set(random.sample(employees, random.randint(1, 3)))
         tasks.append(task)
@@ -58,6 +49,8 @@ def populate_db():
     for task in tasks:
         TaskDetail.objects.create(
             task=task,
+            assigned_to=", ".join(
+                [emp.name for emp in task.assigned_to.all()]),
             priority=random.choice(['H', 'M', 'L']),
             notes=fake.paragraph()
         )

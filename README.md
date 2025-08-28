@@ -1,3 +1,12 @@
+### Precautions
+- make sure you have `DEBUG = True` in `app.setting.py` while coding and testing
+
+### tailwind
+- watch
+```
+npx tailwindcss -i ./static/css/tailwind.css -o ./static/css/output.css --watch
+```
+
 ### create app
 ```
 python .\manage.py startapp core
